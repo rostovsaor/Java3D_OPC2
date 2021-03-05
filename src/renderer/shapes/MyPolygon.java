@@ -55,8 +55,8 @@ public class MyPolygon {
     public void rotate(boolean CW, double xDegrees, double yDegrees, double zDegrees) {
         for(MyPoint p : points) {
             PointConverter.rotateAxisX(p, CW, xDegrees);
-//            PointConverter.rotateAxisY(p, CW, yDegrees);
-//            PointConverter.rotateAxisZ(p, CW, zDegrees);
+            PointConverter.rotateAxisY(p, CW, yDegrees);
+            PointConverter.rotateAxisZ(p, CW, zDegrees);
         }
     }
     

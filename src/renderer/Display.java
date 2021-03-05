@@ -90,7 +90,7 @@ public class Display extends Canvas implements Runnable{
                 update();
                 delta--;
                 render();
-            frames++;
+                frames++;
             }
 //            render();
 //            frames++;
@@ -116,12 +116,13 @@ public class Display extends Canvas implements Runnable{
         MyPoint p7 = new MyPoint(-s/2, s/2, s/2);
         MyPoint p8 = new MyPoint(-s/2, -s/2, s/2);
         this.tetra = new Tetrahedron(
-            new MyPolygon(Color.BLUE ,p1, p2, p3, p4), // Front
-            new MyPolygon(Color.RED, p5, p6, p7, p8),
+            new MyPolygon(Color.BLUE, p5, p6, p7, p8),
             new MyPolygon(Color.WHITE, p1, p2, p6, p5), //Bottom
             new MyPolygon(Color.YELLOW, p1, p5, p8, p4),
             new MyPolygon(Color.GREEN, p2, p6, p7, p3),
-            new MyPolygon(Color.ORANGE, p4, p3, p7, p8) //Top
+            new MyPolygon(Color.ORANGE, p4, p3, p7, p8), //Top
+            new MyPolygon(Color.RED ,p1, p2, p3, p4) // Front
+
         );
 //        this.tetra.rotate(true, 10, 0, 0);
     }
@@ -146,7 +147,7 @@ public class Display extends Canvas implements Runnable{
     }
     
     private void update() {
-        this.tetra.rotate(true, 1, 0, 0);
+        this.tetra.rotate(true, 0, 0, 1);
     }
     
     
