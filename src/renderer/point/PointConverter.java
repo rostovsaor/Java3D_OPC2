@@ -34,7 +34,7 @@ public class PointConverter {
         double dist = Math.sqrt(x3d*x3d + y3d*y3d);
         double theta = Math.atan2(y3d, x3d);
         double depth2 = 15 - depth;
-        double localScale = Math.abs(1400/(depth2+1400));
+        double localScale = Math.abs(1200/(depth2+1200));
         dist *= localScale;
         double[] newVal = new double[2];
         newVal[0] = dist * Math.cos(theta);
@@ -52,16 +52,16 @@ public class PointConverter {
     }
     public static void rotateAxisY(MyPoint p, boolean CW, double degrees) {
         double radius = Math.sqrt(p.x*p.x + p.z*p.z);
-        double theta = Math.atan2(p.z, p.x);
-        theta += 2*Math.PI/360*degrees*(CW?1:-1);
-        p.x = radius * Math.cos(theta);
-        p.z = radius * Math.sin(theta);
+        double theta = Math.atan2(p.x, p.z);
+        theta += 2*Math.PI/360*degrees*(CW?-1:1);
+        p.x = radius * Math.sin(theta);
+        p.z = radius * Math.cos(theta);
     }
     public static void rotateAxisZ(MyPoint p, boolean CW, double degrees) {
         double radius = Math.sqrt(p.y*p.y + p.x*p.x);
-        double theta = Math.atan2(p.x, p.y);
+        double theta = Math.atan2(p.y, p.x);
         theta += 2*Math.PI/360*degrees*(CW?-1:1);
-        p.y = radius * Math.cos(theta);
-        p.x = radius * Math.sin(theta);
+        p.y = radius * Math.sin(theta);
+        p.x = radius * Math.cos(theta);
     }
 }

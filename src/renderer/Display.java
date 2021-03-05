@@ -106,7 +106,7 @@ public class Display extends Canvas implements Runnable{
     
     private void init() {
         // Create a cube, it has 8 points
-        int s = 100;
+        int s = 250;
         MyPoint p1 = new MyPoint(s/2, -s/2, -s/2);
         MyPoint p2 = new MyPoint(s/2, s/2, -s/2);
         MyPoint p3 = new MyPoint(s/2, s/2, s/2);
@@ -139,7 +139,6 @@ public class Display extends Canvas implements Runnable{
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH * 2, HEIGHT * 2);
         
-//        poly.render(g);
         tetra.render(g);
         
         g.dispose();
@@ -149,7 +148,4 @@ public class Display extends Canvas implements Runnable{
     private void update() {
         this.tetra.rotate(true, 0, 0, 1);
     }
-    
-    
-
 }
