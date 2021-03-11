@@ -14,6 +14,8 @@ import java.awt.image.BufferStrategy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import renderer.input.ClickType;
+import renderer.input.Mouse;
 import renderer.point.MyPoint;
 import renderer.shapes.MyPolygon;
 import renderer.shapes.Tetrahedron;
@@ -33,13 +35,21 @@ public class Display extends Canvas implements Runnable{
     private static boolean running = false;
     
     public MyPolygon poly;
-    public Tetrahedron tetra;
+    private Tetrahedron tetra;
+    
+    private Mouse mouse;
     
     public Display() {
         this.frame = new JFrame();
         
         Dimension size = new Dimension(WIDTH, HEIGHT);
         this.setPreferredSize(size);
+        
+        this.mouse = new Mouse();
+        
+        this.addMouseListener(this.mouse);
+        this.addMouseMotionListener(this.mouse);
+        this.addMouseWheelListener(this.mouse);
     }
     
     public static void main(String[] args) {
@@ -106,7 +116,7 @@ public class Display extends Canvas implements Runnable{
     
     private void init() {
         // Create a cube, it has 8 points
-        int s = 250;
+        int s = 200;
         MyPoint p1 = new MyPoint(s/2, -s/2, -s/2);
         MyPoint p2 = new MyPoint(s/2, s/2, -s/2);
         MyPoint p3 = new MyPoint(s/2, s/2, s/2);
@@ -144,8 +154,24 @@ public class Display extends Canvas implements Runnable{
         g.dispose();
         bs.show();
     }
-    
+    ClickType prevMouse = ClickType.Unknown;
+    int initialX, initialY;    
     private void update() {
+        int x = this.mouse.getX();
+        int y = this.mouse.getY();
+        if(this.mouse.getButton() == ClickType.LeftClick) {
+//            if(prevMouse != ClickType.LeftClick) {
+//                initialX = x;
+//                initialY = y;
+//            }
+            int xDif = x - initialX;
+            int yDif = y - initialX;            
+        }
+        initialX = x;
+        initialY = y;        
         this.tetra.rotate(true, 0, 0, 1);
+//        System.out.println(this.mouse.getX() + "x" + this.mouse.getY());
+//        System.out.println(this.mouse.getButton());
+//        this.mouse.resetButton();
     }
 }
