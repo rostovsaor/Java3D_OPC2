@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import renderer.input.ClickType;
 import renderer.input.Mouse;
 import renderer.point.MyPoint;
+import renderer.point.PointConverter;
 import renderer.shapes.MyPolygon;
 import renderer.shapes.Tetrahedron;
 
@@ -111,12 +112,11 @@ public class Display extends Canvas implements Runnable{
             }
         }
         stop();
-    
     }
     
     private void init() {
         // Create a cube, it has 8 points
-        int s = 200;
+        int s = 100;
         MyPoint p1 = new MyPoint(s/2, -s/2, -s/2);
         MyPoint p2 = new MyPoint(s/2, s/2, -s/2);
         MyPoint p3 = new MyPoint(s/2, s/2, s/2);
@@ -132,7 +132,6 @@ public class Display extends Canvas implements Runnable{
             new MyPolygon(Color.GREEN, p2, p6, p7, p3),
             new MyPolygon(Color.ORANGE, p4, p3, p7, p8), //Top
             new MyPolygon(Color.RED ,p1, p2, p3, p4) // Front
-
         );
 //        this.tetra.rotate(true, 10, 0, 0);
     }
@@ -154,22 +153,41 @@ public class Display extends Canvas implements Runnable{
         g.dispose();
         bs.show();
     }
+    
     ClickType prevMouse = ClickType.Unknown;
     int initialX, initialY;    
+    double mouseSensitivity = 7;
     private void update() {
         int x = this.mouse.getX();
         int y = this.mouse.getY();
-        if(this.mouse.getButton() == ClickType.LeftClick) {
-//            if(prevMouse != ClickType.LeftClick) {
-//                initialX = x;
-//                initialY = y;
-//            }
+        if(this.mouse.getButton() == ClickType.LeftClick) {            
             int xDif = x - initialX;
-            int yDif = y - initialX;            
+            int yDif = y - initialY;
+            this.tetra.rotate(true, 0, -yDif/mouseSensitivity, -xDif/mouseSensitivity);
+//            this.tetra.rotate(true, 0, 0, -xDif/mouseSensitivity);
+//            this.tetra.rotate(true, 0, 0, -yDif/mouseSensitivity);
+
         }
+        else if(this.mouse.getButton() == ClickType.RightClick) {
+            int xDif = x - initialX;
+            
+            this.tetra.rotate(true,- xDif/mouseSensitivity, 0, 0);
+        }
+        
+        if(this.mouse.isScrollingUp()) {
+            PointConverter.zoomIn();
+
+        }
+        else if(this.mouse.isScrollingDown()) {
+            PointConverter.zoomOut();
+        }
+        
+        this.mouse.resetScroll();
         initialX = x;
-        initialY = y;        
-        this.tetra.rotate(true, 0, 0, 1);
+        initialY = y;
+        
+//        Comentar a linha abaixo para parar a rotacao automatica
+//        this.tetra.rotate(true, 0, 0, 1);
 //        System.out.println(this.mouse.getX() + "x" + this.mouse.getY());
 //        System.out.println(this.mouse.getButton());
 //        this.mouse.resetButton();

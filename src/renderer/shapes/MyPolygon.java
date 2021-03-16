@@ -44,7 +44,6 @@ public class MyPolygon {
         }
     }
     
-    
     public void render(Graphics g) {
         Polygon poly = new Polygon();
         for(int i = 0; i< this.points.length; i++) {
@@ -63,7 +62,6 @@ public class MyPolygon {
             PointConverter.rotateAxisZ(p, CW, zDegrees);
         }
     }
-    
     
     public double getAverageX() {
         double sum = 0;
